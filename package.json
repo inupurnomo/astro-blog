@@ -65,7 +65,7 @@
   },
   "lint-staged": {
     "!(*.{png,jpg,jpeg,webp})": [
-      "prettier --write --ignore-unknown '**/*.!(js|jsx|vue)'"
+      "prettier --write --ignore-unknown '**/*.!(ts|tsx|js|jsx|vue)'"
     ]
   }
 }
