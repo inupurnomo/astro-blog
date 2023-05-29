@@ -1,0 +1,53 @@
+---
+import "@styles/globals.css";
+import { SITE } from "@config";
+import Layout from "@layouts/Layout.astro";
+import { motion } from "framer-motion";
+import fa from "react-icons/fa/index";
+const { FaAngleDoubleLeft } = fa;
+import { GITHUB_API_URL, GITHUB_USERNAME } from "../data";
+import RepoCard from "@components/part/RepoCard";
+import DarkMode from "@components/part/DarkMode";
+import md from "react-icons/md";
+const { MdNightlight, MdLightMode } = md;
+
+const res = await fetch(`${GITHUB_API_URL}/users/${GITHUB_USERNAME}/repos`);
+let allAlbums = await res.json();
+---
+
+<Layout title={"Open Source - INUPURNOMO"}>
+  <div class="mx-auto w-full">
+    <div class="w-full text-2xl">
+      <div
+        class="absolute flex w-full flex-row items-center justify-between px-12 py-10 mdl:px-28"
+      >
+        <a href={"/"}>
+          <motion.div
+            initial={{ x: -20, opacity: 0 }}
+            animate={{ x: 0, opacity: 1 }}
+            transition={{ duration: 0.5, delay: 0.5 }}
+            client:load
+          >
+            <div class="flex flex-row gap-3">
+              <span class="text-textPrimarymt-1">
+                <FaAngleDoubleLeft />
+              </span>
+              <span
+                class="text-lg transition-all duration-300 hover:translate-x-2 hover:text-textLink"
+              >
+                Back to Home
+              </span>
+            </div>
+          </motion.div>
+        </a>
+        <motion.div
+          initial={{ x: 20, opacity: 0 }}
+          animate={{ x: 0, opacity: 1 }}
+          transition={{ duration: 0.5, delay: 0.5 }}
+        />
+        <DarkMode client:load />
+      </div>
+    </div>
+    {(<RepoCard repos={allAlbums} client:load />)}
+  </div>
+</Layout>
